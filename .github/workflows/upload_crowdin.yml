@@ -1,9 +1,7 @@
 name: Upload Crowdin Action
 
 on:
-  push:
-    paths: [ 'app/_locales/**']
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   crowdin-upload:
