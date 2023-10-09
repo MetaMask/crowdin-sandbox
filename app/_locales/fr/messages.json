@@ -1,0 +1,17 @@
+{
+    "QRHardwareInvalidTransactionTitle": {
+        "message": "Erreur"
+    },
+    "QRHardwareMismatchedSignId": {
+        "message": "Données de transaction incompatibles. Veuillez vérifier les détails de la transaction."
+    },
+    "QRHardwarePubkeyAccountOutOfRange": {
+        "message": "Il n’y a plus de comptes. Si vous souhaitez accéder à un autre compte non répertorié ci-dessous, veuillez reconnecter votre portefeuille matériel et le sélectionner."
+    },
+    "QRHardwareScanInstructions": {
+        "message": "Placez le code QR devant votre caméra. L’écran est flou, mais cela n’affectera pas la lecture."
+    },
+    "QRHardwareSignRequestCancel": {
+        "message": "Rejeter"
+    }
+}
