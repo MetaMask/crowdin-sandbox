@@ -11,6 +11,10 @@ jobs:
   crowdin:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract current branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_current_branch
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -20,12 +24,14 @@ jobs:
           upload_sources: false
           upload_translations: false
           download_translations: true
-          localization_branch_name: l10n_crowdin_translations
+          skip_untranslated_strings: true
+          export_only_approved: true
+          localization_branch_name: l10n_crowdin_translations_${{ steps.extract_current_branch.outputs.branch }}
 
           create_pull_request: true
           pull_request_title: 'New Crowdin translations'
           pull_request_body: 'New Crowdin pull request with translations'
-          pull_request_base_branch_name: 'main'
+          pull_request_base_branch_name: ${{ steps.extract_current_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
