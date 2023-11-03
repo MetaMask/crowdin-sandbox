@@ -2,8 +2,6 @@ name: Upload Crowdin Action
 
 on:
   push:
-    branches:
-      - '!main'
     paths:
       - 'app/locales/**'
 
