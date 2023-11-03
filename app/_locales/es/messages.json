@@ -15,6 +15,6 @@
         "message": "Rechazar"
     },
     "QRHardwareSignRequestDescription": {
-        "message": "After you’ve signed with your wallet, click on 'Get Signature' to receive the signature"
+        "message": "Después de firmar con su monedero, haga clic en \\\"Obtener firma\\\" para recibir la firma"
     }
 }
