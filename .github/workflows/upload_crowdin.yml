@@ -3,7 +3,7 @@ name: Upload Crowdin Action
 on:
   push:
     paths:
-      - 'app/locales/**'
+      - 'app/_locales/**'
 
 jobs:
   crowdin-upload:
