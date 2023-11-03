@@ -1,7 +1,4 @@
 {
-    "QRHardwareInvalidTransactionTitle": {
-        "message": "Error"
-    },
     "QRHardwareMismatchedSignId": {
         "message": "Datos de transacción incongruentes. Compruebe los detalles."
     },
