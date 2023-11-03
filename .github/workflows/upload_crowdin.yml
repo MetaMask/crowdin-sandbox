@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'app/_locales/**'
+  merge_group:
+    branches: [ main ]
 
 jobs:
   crowdin-upload:
