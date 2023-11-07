@@ -19,7 +19,7 @@ jobs:
           crowdin_branch_name: ${{ steps.extract_current_branch.outputs.branch }}
           upload_sources: true
           upload_translations: true
-          upload_translations_args: --auto-approve-imported true --branch ${{ steps.extract_current_branch.outputs.branch }} --verbose true
+          upload_translations_args: --auto-approve-imported true --verbose true
           download_translations: false
         env:
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
