@@ -1,4 +1,4 @@
-name: Upload Sources (en file) Crowdin Action
+name: Upload Crowdin Action
 
 on: workflow_dispatch
 
@@ -18,7 +18,8 @@ jobs:
         with:
           crowdin_branch_name: ${{ steps.extract_current_branch.outputs.branch }}
           upload_sources: true
-          upload_sources_args: --auto-update --verbose
+          upload_translations: true
+          upload_translations_args: --auto-approve-imported --verbose
           download_translations: false
         env:
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
