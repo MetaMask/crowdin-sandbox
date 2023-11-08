@@ -22,5 +22,8 @@
     },
     "QRHardwareSignRequestSubtitle": {
         "message": "Escanee código QR con su monedero"
+    },
+    "QRHardwareSignRequestTitle": {
+        "message": "Solicitar firma"
     }
 }

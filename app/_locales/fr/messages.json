@@ -22,5 +22,8 @@
     },
     "QRHardwareSignRequestSubtitle": {
         "message": "Veuillez scanner le code QR avec votre portefeuille"
+    },
+    "QRHardwareSignRequestTitle": {
+        "message": "Demander la signature"
     }
 }
