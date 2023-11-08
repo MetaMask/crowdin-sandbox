@@ -9,7 +9,7 @@
       "message": "No more accounts. If you would like to access another account unlisted below, please reconnect your hardware wallet and select it."
     },
     "QRHardwareScanInstructions": {
-      "message": "Place the QR code in front of your camera. The screen is blurred, but it will not affect the reading."
+      "message": "Changed WF3 test. Place the QR code in front of your camera. The screen is blurred, but it will not affect the reading."
     },
     "QRHardwareSignRequestCancel": {
       "message": "Reject"
