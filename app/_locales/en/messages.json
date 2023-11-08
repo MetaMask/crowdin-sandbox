@@ -22,5 +22,8 @@
     },
     "QRHardwareSignRequestSubtitle": {
       "message": "Scan the QR code with your wallet"
+    },
+    "QRHardwareSignRequestTitle": {
+      "message": "Request signature"
     }
 }
