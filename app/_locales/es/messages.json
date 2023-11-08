@@ -9,7 +9,7 @@
         "message": "No hay más cuentas. Para acceder a otra cuenta que no figura en la lista, vuelva a conectar su monedero físico y selecciónela."
     },
     "QRHardwareScanInstructions": {
-        "message": "Coloque el código QR delante de la cámara. La pantalla está borrosa, pero no afectará la lectura."
+        "message": "Changed WF3 test. Coloque el código QR delante de la cámara. La pantalla está borrosa, pero no afectará la lectura."
     },
     "QRHardwareSignRequestCancel": {
         "message": "Rechazar"
