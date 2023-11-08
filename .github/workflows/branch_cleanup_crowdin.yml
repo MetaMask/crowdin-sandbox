@@ -4,10 +4,8 @@ permissions:
   contents: write
   pull-requests: write
 
-on:
-  pull_request:
-    types:
-      - closed
+
+on: workflow_dispatch
 
 jobs:
   prestep:

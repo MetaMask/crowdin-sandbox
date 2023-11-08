@@ -1,4 +1,4 @@
-name: Upload Crowdin Action
+name: Upload Both Sources and Translations Crowdin Action (should happen on main push)
 
 on: workflow_dispatch
 
