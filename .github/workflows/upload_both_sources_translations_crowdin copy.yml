@@ -18,7 +18,6 @@ jobs:
         with:
           crowdin_branch_name: ${{ steps.extract_current_branch.outputs.branch }}
           upload_sources: true
-          upload_sources_args: --auto-update --verbose
           upload_translations: true
           upload_translations_args: --import-eq-suggestions --verbose
           download_translations: false
