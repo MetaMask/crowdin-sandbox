@@ -3,7 +3,7 @@ name: Upload sources Crowdin Action (happen on changes to en json only)
 on: 
   push:
     paths:
-      - 'src/locales/en/messages.json'
+      - 'src/_locales/en/messages.json'
 
 jobs:
   prestep:
