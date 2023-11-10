@@ -1,4 +1,4 @@
-name: Upload Translations Crowdin Action (happy on lang json update only)
+name: Upload Translations Crowdin Action (when label is added)
 
 on: workflow_dispatch
 

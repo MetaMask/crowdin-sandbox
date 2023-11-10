@@ -1,6 +1,9 @@
 name: Upload Both Sources and Translations Crowdin Action (should happen on main push)
 
-on: workflow_dispatch
+on:
+  push:
+    paths: [ 'app/_locales/**']
+    branches: [ main ]
 
 jobs:
   crowdin-upload:
