@@ -21,6 +21,7 @@ jobs:
         with:
           crowdin_branch_name: ${{ steps.extract_current_branch.outputs.branch }}
           upload_sources: true
+          upload_translations_args: --import-eq-suggestions --auto-approve-imported --verbose
           upload_translations: true
         env:
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
