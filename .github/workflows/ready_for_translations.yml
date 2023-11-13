@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: ${{ steps.extract_current_branch.outputs.branch }}
       
       - name: Crowdin push
         uses: crowdin/github-action@a3160b9e5a9e00739392c23da5e580c6cabe526d
