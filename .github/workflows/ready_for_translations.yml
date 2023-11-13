@@ -1,9 +1,19 @@
-name: Upload sources Crowdin Action (happen on changes to en json only)
+name: Push for translations - Crowdin Action
 
-on: workflow_dispatch
+# When an individual is working on a feature which requires translations, they can
+# add a label "ready-for-translation" which will trigger this action to push the 
+# source and translation files to Crowdin. We will always push main as the base of
+# the crowdin branch creation and then push in the changes over the top. This ensures
+# that the translations which have already been done and approved previously do not
+# show as needing to be translated again in crowdin.
 
+on: 
+  pull_request:
+    types: [labeled]
+   
 jobs:
   crowdin-upload:
+    if: github.event.label.name == 'ready-for-translation'
     runs-on: ubuntu-latest
     steps:
       - name: Extract current branch name

@@ -1,10 +1,15 @@
-name: Download Crowdin Action
+name: Download Translations for Branches from Crowdin
+# This action will check the status of the translations for the current branch and
+# download them if they are ready. It will then create a pull request with the 
+# translations for the current branch.
 
 permissions:
   contents: write
   pull-requests: write
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: '*/5 * * * *' # every 5 minutes
 
 jobs:
   crowdin:
@@ -14,9 +19,22 @@ jobs:
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_current_branch
+      
       - name: Checkout
         uses: actions/checkout@v3
-
+        with:
+          ref: ${{ steps.extract_current_branch.outputs.branch }}
+      
+      - name: Check translation progress
+        uses: crowdin/github-action@a3160b9e5a9e00739392c23da5e580c6cabe526d
+        with:
+          command: 'status translation'
+          command_args: '-b ${{ steps.extract_current_branch.outputs.branch }} --fail-if-incomplete'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+      
       - name: Synchronize with Crowdin
         uses: crowdin/github-action@a3160b9e5a9e00739392c23da5e580c6cabe526d
         with:

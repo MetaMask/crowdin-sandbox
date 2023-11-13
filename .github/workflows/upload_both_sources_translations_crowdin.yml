@@ -1,4 +1,7 @@
-name: Upload Both Sources and Translations Crowdin Action (should happen on main push)
+name: Upload Both Sources and Translations Crowdin Action
+# This action is intended to ensure our main branch on crowdin is in sync with our
+# main branch on github and will run on every push to main to has changes to any
+# locales files.
 
 on:
   push:

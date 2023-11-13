@@ -1,11 +1,15 @@
-name: Branch Cleanup Crowdin Action
+name: Branch Cleanup for merged translation branches - Crowdin Action
+# This action should cleanup any internationalization branches for associated merged PRs
+# in github and should delete the created branch in crowdin.
+
 
 permissions:
   contents: write
   pull-requests: write
 
-
-on: workflow_dispatch
+on: 
+  pull_request:
+    types: [closed]
 
 jobs:
   prestep:
@@ -16,7 +20,7 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_current_branch
   if_merged:
-    if: github.event.pull_request.merged == true && github.event.pull_request.title == ' New Crowdin translations for ${{ needs.prestep.outputs.branch }}'
+    if: github.event.pull_request.merged == true && github.event.pull_request.title == 'New Crowdin translations for ${{ needs.prestep.outputs.branch }}'
     runs-on: ubuntu-latest
     steps:
     - run: |
@@ -24,13 +28,10 @@ jobs:
   crowdin:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract current branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_current_branch
       - name: Checkout
         uses: actions/checkout@v3
-        
+# Need to delete github branch here too.
+
       - name: Delete branch within Crowdin
         uses: crowdin/github-action@a3160b9e5a9e00739392c23da5e580c6cabe526d
         with:
