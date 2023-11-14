@@ -7,32 +7,34 @@ jobs:
   get-branches:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Git
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Get branches with "ready" label
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install @actions/core got
+
+      - name: Get Branches with Label
         id: get-branches
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-
         run: |
-          LABEL_NAME="ready-for-translation"
-          BRANCHES=""
-          PAGE=1
-          while true; do
-            PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open&per_page=100")
-            FILTERED_PRS=$(echo "$PRS" | jq -r "map(select(.labels[].name == \"$LABEL_NAME\")) | .[].head.ref")
-            if [[ -z "$FILTERED_PRS" ]]; then
-              break
-            fi
-            BRANCHES="$BRANCHES $FILTERED_PRS"
-          done
-          echo "branches=$BRANCHES"       
-
-      - name: Show branches with "ready" label
-        run: | 
-          echo "Branches with 'ready-for-translation' label: ${{ steps.get-branches.outputs.branches }}"
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           
+          LABEL="ready-for-translation"
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls?state=open&per_page=100"
+          
+          # Fetch the list of open pull requests with the specified label
+          BRANCHES=$(npx got "$API_URL" -H "Authorization: Bearer $GITHUB_TOKEN" | npx jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref' | sort -u)
+          
+          echo "Branches with the label '$LABEL':"
+          echo "$BRANCHES"
+          
+          echo "branches=$BRANCHES" >> $GITHUB_OUTPUT
 
+      - name: Display Branches
+        run: |
+          BRANCHES="${{ steps.get-branches.outputs.branches }}"
+          echo "Unique Branches: $BRANCHES"
