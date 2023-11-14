@@ -15,10 +15,14 @@ jobs:
         run: |
           LABEL_NAME="ready-for-translation"
           BRANCHES=""
-          for branch in $(git branch -r --format='%(refname:lstrip=3)'); do
-            if [[ $(git log -1 --pretty=%B $branch) =~ $LABEL_NAME ]]; then
-              BRANCHES="$BRANCHES $branch"
+          PAGE=1
+          while true; do
+            PRS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/pulls?state=open&labels=${LABEL_NAME}&page=${PAGE}")
+            if [[ -z "$PRS" ]]; then
+              break
             fi
+            BRANCHES="$BRANCHES $(echo "$PRS" | jq -r '.[].head.ref')"
+            PAGE=$((PAGE + 1))
           done
           echo "branches=${BRANCHES}" >> $GITHUB_OUTPUT
 
