@@ -32,8 +32,8 @@ jobs:
           BRANCHES="${{ steps.get-branches.outputs.branches }}"
           echo "Creating matrix from branches..."
           MATRIX="['${BRANCHES// /','}']"
-          echo "matrix=$MATRIX"
-  
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
   run-for-branch:
     needs: get-branches
     runs-on: ubuntu-latest
@@ -48,3 +48,4 @@ jobs:
       - name: Run for branch
         run: |
           echo "Running for branch ${{ matrix.branch }}"
+  
