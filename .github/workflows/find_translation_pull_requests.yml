@@ -23,8 +23,8 @@ jobs:
 
 
           echo "jq1 output: $(echo $PRS | jq -r '.[] | .labels[].name')"
-          echo "jq2 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "$LABEL")')"
-          BRANCHES=$($PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref' | sort -u)
+          echo "jq2 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation")')"
+          BRANCHES=$($PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref')
           
           echo "Branches with the label '$LABEL':"
           echo "$BRANCHES"
