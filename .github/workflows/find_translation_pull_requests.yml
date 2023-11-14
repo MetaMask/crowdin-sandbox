@@ -10,11 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install jq
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-
       - name: Get Branches with Label
         id: get-branches
         run: |
@@ -27,7 +22,8 @@ jobs:
           PRS=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL")
           echo "LABEL: $LABEL"
           echo "jq0 output: $(echo $PRS | jq -r '.[]')"
-          echo "jq1 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "$LABEL")')"
+          echo "jq1 output: $(echo $PRS | jq -r '.[] | .labels[]')"
+          echo "jq2 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "$LABEL")')"
           BRANCHES=$($PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref' | sort -u)
           
           echo "Branches with the label '$LABEL':"
