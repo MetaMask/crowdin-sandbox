@@ -19,13 +19,8 @@ jobs:
         run: |
           LABEL_NAME="ready-for-translation"
           BRANCHES=""
-          while true; do
-            PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open")
-            if [[ -z "$PRS" ]]; then
-              break
-            fi
-            BRANCHES="$BRANCHES $(echo "$PRS" | jq -r '.[].head.ref')"
-          done
+          PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open&labels=${LABEL_NAME}&per_page=100")
+          BRANCHES="$(echo "$PRS" | jq -r '.[].head.ref')"
           echo "branches=${BRANCHES}" >> $GITHUB_OUTPUT
           
 
