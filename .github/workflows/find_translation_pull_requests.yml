@@ -23,11 +23,11 @@ jobs:
           PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open")
           while IFS= read -r line; do
             if [[ "$line" =~ .*\"name\":\"$LABEL_NAME\".* ]]; then
+              echo "line=$line"
               branch=$(echo "$line" | jq -r '.[].head.ref')
               BRANCHES="$BRANCHES $branch"
             fi
           done <<< "$PRS"
-          echo "prs=$PRS"
           echo "branches=$BRANCHES"       
 
       - name: Show branches with "ready" label
