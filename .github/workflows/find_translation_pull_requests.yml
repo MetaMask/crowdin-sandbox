@@ -21,10 +21,8 @@ jobs:
           # Fetch the list of open pull requests with the specified label using curl
           PRS=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL")
 
-
-          echo "jq1 output: $(echo $PRS | jq -r '.[] | .labels[].name')"
           echo "jq2 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .head.ref')"
-          BRANCHES=$($PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref')
+          BRANCHES=$(echo $PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref')
           
           echo "Branches with the label '$LABEL':"
           echo "$BRANCHES"
