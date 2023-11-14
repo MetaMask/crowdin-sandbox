@@ -22,7 +22,7 @@ jobs:
           PRS=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL")
 
           echo "jq2 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .head.ref')"
-          BRANCHES=$(echo $PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref')
+          BRANCHES=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .head.ref')
           
           echo "Branches with the label '$LABEL':"
           echo "$BRANCHES"
