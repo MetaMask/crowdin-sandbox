@@ -20,7 +20,7 @@ jobs:
         run: |
           LABEL_NAME="ready-for-translation"
           BRANCHES=""
-          PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/MetaMask/$REPO/pulls?state=open&labels=${LABEL_NAME}&per_page=100")
+          PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/pulls?state=open&labels=${LABEL_NAME}&per_page=100")
           echo "prs=$PRS"
           BRANCHES="$(echo "$PRS" | jq -r '.[].head.ref')"
           echo "branches=$BRANCHES"       
