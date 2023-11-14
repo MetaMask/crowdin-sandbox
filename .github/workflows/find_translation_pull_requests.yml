@@ -12,17 +12,22 @@ jobs:
 
       - name: Get branches with "ready" label
         id: get-branches
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+
         run: |
           LABEL_NAME="ready-for-translation"
           BRANCHES=""
           while true; do
-            PRS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/pulls?state=open&labels=${LABEL_NAME}")
+            PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open")
             if [[ -z "$PRS" ]]; then
               break
             fi
             BRANCHES="$BRANCHES $(echo "$PRS" | jq -r '.[].head.ref')"
           done
           echo "branches=${BRANCHES}" >> $GITHUB_OUTPUT
+          
 
       - name: Show branches with "ready" label
         run: | 
