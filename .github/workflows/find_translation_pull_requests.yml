@@ -22,7 +22,7 @@ jobs:
           BRANCHES=""
           PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN"  "https://api.github.com/repos/$REPO/pulls?state=open&labels=${LABEL_NAME}&per_page=100")
           BRANCHES="$(echo "$PRS" | jq -r '.[].head.ref')"
-          echo "branches=$BRANCHES" >> $GITHUB_OUTPUT         
+          echo "branches=$BRANCHES"       
 
       - name: Show branches with "ready" label
         run: | 
