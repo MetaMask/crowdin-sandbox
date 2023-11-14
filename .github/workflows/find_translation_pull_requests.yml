@@ -21,15 +21,30 @@ jobs:
           # Fetch the list of open pull requests with the specified label using curl
           PRS=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL")
 
-          echo "jq2 output: $(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .head.ref')"
           BRANCHES=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .head.ref')
-          
-          echo "Branches with the label '$LABEL':"
-          echo "$BRANCHES"
           
           echo "branches=$BRANCHES" >> $GITHUB_OUTPUT
 
-      - name: Display Branches
+      - name: Set up matrix
+        id: matrix
         run: |
+          # Parse the branches output and create a matrix
           BRANCHES="${{ steps.get-branches.outputs.branches }}"
-          echo "Unique Branches: $BRANCHES"
+          echo "Creating matrix from branches..."
+          MATRIX="['${BRANCHES// /','}']"
+          echo "matrix=$MATRIX"
+  
+  run-for-branch:
+    needs: get-branches
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ${{fromJson(needs.get-branches.outputs['matrix'])}}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run for branch
+        run: |
+          echo "Running for branch ${{ matrix.branch }}"
