@@ -23,12 +23,11 @@ jobs:
           PAGE=1
           while true; do
             PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open&per_page=100")
-            if [[ -z "$PRS" ]]; then
+            FILTERED_PRS=$(echo "$PRS" | jq -r "map(select(.labels[].name == \"$LABEL_NAME\")) | .[].head.ref")
+            if [[ -z "$FILTERED_PRS" ]]; then
               break
             fi
-            echo "$PRS"
-            BRANCHES="$BRANCHES $(echo "$PRS" | jq -r "map(select(.labels[].name == \"$LABEL_NAME\")) | .[].head.ref" | tr '\n' ' ')"
-            PAGE=$((PAGE + 1))
+            BRANCHES="$BRANCHES $FILTERED_PRS"
           done
           echo "branches=$BRANCHES"       
 
