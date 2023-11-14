@@ -1,0 +1,27 @@
+name: Find all pull requests with ready-for-translation label
+# Trying to figure out how to run a workflow for a set of branches
+
+on: workflow_dispatch
+
+jobs:
+  get-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git
+        uses: actions/checkout@v2
+
+      - name: Get branches with "ready" label
+        id: get-branches
+        run: |
+          LABEL_NAME="ready"
+          BRANCHES=""
+          for pr in $(echo "${{ github.event.workflow_run.event.data.workflow_run.conclusion }}"); do
+            BRANCHES="$BRANCHES $(echo "$pr" | jq -r '.pull_requests[] | .head.ref')"
+          done
+          echo "::set-output name=branches::${BRANCHES}"
+
+      - name: Show branches with "ready" label
+        run: | 
+          echo "Branches with 'ready' label: ${{ steps.get-branches.outputs.branches }}"
+          
+
