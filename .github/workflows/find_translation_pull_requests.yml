@@ -8,17 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Get branches with "ready" label
         id: get-branches
         run: |
           LABEL_NAME="ready"
           BRANCHES=""
-          for pr in $(echo "${{ github.event.workflow_run.event.data.workflow_run.conclusion }}"); do
-            BRANCHES="$BRANCHES $(echo "$pr" | jq -r '.pull_requests[] | .head.ref')"
+          for branch in $(git branch -r --format='%(refname:lstrip=3)'); do
+            if [[ $(git log -1 --pretty=%B $branch) =~ $LABEL_NAME ]]; then
+              BRANCHES="$BRANCHES $branch"
+            fi
           done
-          echo "::set-output name=branches::${BRANCHES}"
+          echo "branches=${BRANCHES}" >> $GITHUB_OUTPUT
 
       - name: Show branches with "ready" label
         run: | 
