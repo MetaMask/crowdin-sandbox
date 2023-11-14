@@ -26,8 +26,8 @@ jobs:
           LABEL="ready-for-translation"
           API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls?state=open&per_page=100"
           
-          # Fetch the list of open pull requests with the specified label
-          BRANCHES=$(npx got "$API_URL" -H "Authorization: Bearer $GITHUB_TOKEN" | npx jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref' | sort -u)
+          # Fetch the list of open pull requests with the specified label using curl
+          BRANCHES=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL" | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref' | sort -u)
           
           echo "Branches with the label '$LABEL':"
           echo "$BRANCHES"
