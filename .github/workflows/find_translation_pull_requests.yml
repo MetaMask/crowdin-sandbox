@@ -13,7 +13,7 @@ jobs:
       - name: Get branches with "ready" label
         id: get-branches
         run: |
-          LABEL_NAME="ready"
+          LABEL_NAME="ready-for-translation"
           BRANCHES=""
           for branch in $(git branch -r --format='%(refname:lstrip=3)'); do
             if [[ $(git log -1 --pretty=%B $branch) =~ $LABEL_NAME ]]; then
