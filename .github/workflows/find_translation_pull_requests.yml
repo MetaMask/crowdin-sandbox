@@ -27,12 +27,7 @@ jobs:
               break
             fi
             echo "$PRS"
-            while IFS= read -r pr; do
-              if [[ "$(echo "$pr" | jq -r '.labels[].name' | grep -o "$LABEL_NAME")" == "$LABEL_NAME" ]]; then
-                branch=$(echo "$pr" | jq -r '.head.ref')
-                BRANCHES="$BRANCHES $branch"
-              fi
-            done <<< "$PRS"
+            BRANCHES="$BRANCHES $(echo "$PRS" | jq -r "map(select(.labels[].name == \"$LABEL_NAME\")) | .[].head.ref" | tr '\n' ' ')"
             PAGE=$((PAGE + 1))
           done
           echo "branches=$BRANCHES"       
