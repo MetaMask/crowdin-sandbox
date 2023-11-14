@@ -20,7 +20,7 @@ jobs:
         run: |
           LABEL_NAME="ready-for-translation"
           BRANCHES=""
-          PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
+          PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/pulls?state=open")
           while IFS= read -r line; do
             if [[ "$line" =~ .*\"name\":\"$LABEL_NAME\".* ]]; then
               branch=$(echo "$line" | jq -r '.head.ref')
