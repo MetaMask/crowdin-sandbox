@@ -12,6 +12,7 @@ jobs:
 
       - name: Get branches with "ready" label
         id: get-branches
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -21,10 +22,10 @@ jobs:
           BRANCHES=""
           PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/$REPO/pulls?state=open&labels=${LABEL_NAME}&per_page=100")
           BRANCHES="$(echo "$PRS" | jq -r '.[].head.ref')"
-          echo "branches=${BRANCHES}"        
+          echo "branches=${BRANCHES}" >> $GITHUB_OUTPUT         
 
       - name: Show branches with "ready" label
         run: | 
-          echo "Branches with 'ready' label: ${{ steps.get-branches.outputs.branches }}"
+          echo "Branches with 'ready-for-translation' label: ${{ steps.get-branches.outputs.branches }}"
           
 
