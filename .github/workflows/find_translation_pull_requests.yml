@@ -29,6 +29,7 @@ jobs:
           
           # Fetch the list of open pull requests with the specified label using curl
           PRS=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL")
+          echo "Pull Requests: $PRS"
           BRANCHES=$($PRS | jq -r '.[] | select(.labels[].name == "$LABEL") | .head.ref' | sort -u)
           
           echo "Branches with the label '$LABEL':"
