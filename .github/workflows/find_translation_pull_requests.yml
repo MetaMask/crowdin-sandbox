@@ -20,14 +20,20 @@ jobs:
         run: |
           LABEL_NAME="ready-for-translation"
           BRANCHES=""
-          PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/pulls?state=open")
-          while IFS= read -r line; do
-            echo "line=$line"
-            if [[ "$line" =~ .*\"name\":\"$LABEL_NAME\".* ]]; then
-              branch=$(echo "$line" | jq -r '.head.ref')
-              BRANCHES="$BRANCHES $branch"
+          PAGE=1
+          while true; do
+            PRS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/pulls?state=open&per_page=100&page=${PAGE}")
+            if [[ -z "$PRS" ]]; then
+              break
             fi
-          done <<< "$PRS"
+            while IFS= read -r pr; do
+              if [[ "$(echo "$pr" | jq -r '.labels[].name' | grep -o "$LABEL_NAME")" == "$LABEL_NAME" ]]; then
+                branch=$(echo "$pr" | jq -r '.head.ref')
+                BRANCHES="$BRANCHES $branch"
+              fi
+            done <<< "$PRS"
+            PAGE=$((PAGE + 1))
+          done
           echo "branches=$BRANCHES"       
 
       - name: Show branches with "ready" label
