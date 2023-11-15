@@ -13,20 +13,5 @@
     },
     "QRHardwareSignRequestCancel": {
         "message": "Rejeter"
-    },
-    "QRHardwareSignRequestDescription": {
-        "message": "Après avoir signé avec votre portefeuille, cliquez sur « Obtenir la signature » pour recevoir la signature"
-    },
-    "QRHardwareSignRequestGetSignature": {
-        "message": "Obtenir la signature"
-    },
-    "QRHardwareSignRequestSubtitle": {
-        "message": "Veuillez scanner le code QR avec votre portefeuille"
-    },
-    "QRHardwareSignRequestTitle": {
-        "message": "Demander la signature"
-    },
-    "QRHardwareUnknownWalletQRCode": {
-        "message": "Code QR invalide. Scannez le code QR de synchronisation du portefeuille matériel."
     }
 }
