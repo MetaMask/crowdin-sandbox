@@ -24,13 +24,9 @@ jobs:
     steps:
     - run: |
         echo The PR was merged
-  crowdin:
+  crowdin_cleanup:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-# Need to delete github branch here too.
-
       - name: Delete branch within Crowdin
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:
@@ -39,3 +35,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+
+  gh_cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Delete branch within GitHub
+        if: ${{ steps.extract_current_branch.outputs.branch }} != 'main'
+        run: |
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          
+          API_URL="https://api.github.com/repos/Metamask/crowdin-sandbox/git/refs/heads/l10n_crowdin_translations_${{ steps.extract_current_branch.outputs.branch }}"
+
+          curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "$API_URL"    
+          
+          echo "Github branch: ${{ steps.extract_current_branch.outputs.branch }} deleted"
