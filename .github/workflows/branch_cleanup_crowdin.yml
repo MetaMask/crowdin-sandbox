@@ -2,10 +2,6 @@ name: Crowdin - Branch Cleanup for merged translation branches - Crowdin Action
 # This action should cleanup any internationalization branches for associated merged PRs
 # in github and should delete the created branch in crowdin.
 
-permissions:
-  contents: write
-  pull-requests: write
-
 on: 
   pull_request:
     types: [closed]
