@@ -31,7 +31,7 @@ jobs:
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:
           command: delete branch 
-          command_args: '--branch ${{ steps.extract_current_branch.outputs.branch }}'
+          command_args: ${{ steps.extract_current_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
