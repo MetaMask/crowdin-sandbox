@@ -9,7 +9,8 @@
 
 files: [
   {
-    "source": "/app/_locales/en/*.json",
-    "translation": "/app/_locales/%two_letters_code%/*.json",
+    "source": "app/_locales/en/*.json",
+    "translation": "app/_locales/%two_letters_code%/%original_file_name%",
+    "update_option": "update_as_unapproved"
   }
 ]
