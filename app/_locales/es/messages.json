@@ -13,5 +13,8 @@
     },
     "QRHardwareSignRequestCancel": {
         "message": "Rechazar"
+    },
+    "QRHardwareSignRequestDescription": {
+        "message": "Después de firmar con su monedero, haga clic en \"Obtener firma\" para recibir la firma"
     }
 }
