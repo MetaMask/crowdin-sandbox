@@ -25,5 +25,8 @@
     },
     "QRHardwareSignRequestTitle": {
         "message": "Solicitar firma"
+    },
+    "QRHardwareUnknownWalletQRCode": {
+        "message": "Código QR no válido. Escanee el QR sincronizado del monedero físico."
     }
 }
