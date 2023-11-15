@@ -25,5 +25,8 @@
     },
     "QRHardwareSignRequestTitle": {
       "message": "Request signature"
+    },
+    "QRHardwareUnknownWalletQRCode": {
+      "message": "Invalid QR code. Please scan the sync QR code of the hardware wallet."
     }
 }
