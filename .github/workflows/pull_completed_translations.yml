@@ -9,10 +9,7 @@ permissions:
   contents: write
   pull-requests: write
 
-on: 
-  schedule:
-    - cron: '*/5 * * * *' # run every 5 minutes (change in prod to twice a day maybe)
-
+on: workflow_dispatch
 jobs: 
   run-check-and-download-for-branch:
     needs: get-branches
