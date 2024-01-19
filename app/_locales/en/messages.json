@@ -16,5 +16,8 @@
     },
     "QRHardwareSignRequestDescription": {
       "message": "After you’ve signed with your wallet, click on 'Get Signature' to receive the signature"
+    },
+    "QRHardwareSignRequestTitle": {
+      "message": "Request signature"
     }
 }
