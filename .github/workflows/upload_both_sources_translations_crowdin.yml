@@ -3,10 +3,7 @@ name: Crowdin - Upload Both Sources and Translations Crowdin Action
 # main branch on github and will run on every push to main to has changes to any
 # locales files.
 
-on:
-  push:
-    paths: [ 'app/_locales/**']
-    branches: [ main ]
+on: workflow_dispatch
 
 jobs:
   crowdin-upload:

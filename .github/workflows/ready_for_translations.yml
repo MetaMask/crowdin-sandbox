@@ -7,9 +7,7 @@ name: Crowdin - Ready for translations label added, push to crowdin
 # that the translations which have already been done and approved previously do not
 # show as needing to be translated again in crowdin.
 
-on: 
-  pull_request:
-    types: [labeled]
+on: workflow_dispatch
    
 jobs:
   crowdin-upload:
