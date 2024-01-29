@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: main
+        branch: [main]
     uses: ./.github/workflows/reusable_translation_download_crowdin_workflow.yml
     with:
       branch: ${{ matrix.branch }}
