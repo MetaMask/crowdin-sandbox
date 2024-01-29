@@ -11,7 +11,7 @@ on: workflow_dispatch
    
 jobs:
   crowdin-upload:
-    if: github.event.label.name == 'ready-for-translation'
+    # if: github.event.label.name == 'ready-for-translation'
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
