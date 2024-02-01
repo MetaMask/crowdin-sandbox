@@ -16,5 +16,8 @@
     },
     "QRHardwareSignRequestDescription": {
         "message": "Après avoir signé avec votre portefeuille, cliquez sur « Obtenir la signature » pour recevoir la signature"
+    },
+    "QRHardwareSignRequestGetSignature": {
+        "message": "Obtenir la signature"
     }
 }
