@@ -17,6 +17,9 @@
     "QRHardwareSignRequestDescription": {
         "message": "Después de firmar con su monedero, haga clic en \"Obtener firma\" para recibir la firma"
     },
+    "QRHardwareSignRequestSubtitle": {
+        "message": "Escanee código QR con su monedero"
+    },
     "QRHardwareSignRequestGetSignature": {
         "message": "Obtener firma"
     }
