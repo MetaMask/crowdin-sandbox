@@ -12,13 +12,13 @@
         "message": "Coloque el código QR delante de la cámara. La pantalla está borrosa, pero no afectará la lectura."
     },
     "QRHardwareSignRequestCancel": {
-        "message": "Rechazar changes"
+        "message": "Rechazar CORRECTION"
     },
     "QRHardwareSignRequestDescription": {
         "message": "Después de firmar con su monedero, haga clic en \"Obtener firma\" para recibir la firma"
     },
     "QRHardwareSignRequestGetSignature": {
-        "message": "Obtener firma"
+        "message": "CORRECTION"
     },
     "QRHardwareSignRequestSubtitle": {
         "message": "Escanee código QR con su monedero"
