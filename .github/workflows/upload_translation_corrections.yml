@@ -1,0 +1,29 @@
+name: Crowdin - Upload Translation Corrections Crowdin Action
+# This action is meant to upload translation corrections for review.
+# We will assume this is triggered by a label being added to a PR. 
+
+
+on: workflow_dispatch
+
+jobs:
+  crowdin-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract current branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_current_branch
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Crowdin push
+        uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
+        with:
+          crowdin_branch_name: ${{ steps.extract_current_branch.outputs.branch }}
+          upload_sources: true
+          upload_translations: true
+          upload_translations_args: --import-eq-suggestions --no-auto-approve-imported --verbose
+          download_translations: false
+        env:
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
