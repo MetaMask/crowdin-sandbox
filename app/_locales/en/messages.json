@@ -23,6 +23,10 @@
     "QRHardwareSignRequestSubtitle": {
       "message": "Scan the QR code with your wallet"
     },
+
+    "QRHardwareUnknownWalletQRCode": {
+      "message": "Invalid QR code. Please scan the sync QR code of the hardware wallet."
+    },
     "QRHardwareSignRequestTitle": {
       "message": "Sign request"
     }
