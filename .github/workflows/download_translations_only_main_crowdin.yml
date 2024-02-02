@@ -1,0 +1,22 @@
+name: Download translations only for main branch
+# this will run on a cron schedule and just periodically check for new translations
+# and download them if they exist
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on: workflow_dispatch
+jobs: 
+  run-check-and-download-for-branch:
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: [main]
+    uses: ./.github/workflows/reusable_translation_download_crowdin_workflow.yml
+    with:
+      branch: ${{ matrix.branch }}
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
+      crowdin_personal_token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+      crowdin_project_id: ${{ secrets.CROWDIN_PROJECT_ID }}

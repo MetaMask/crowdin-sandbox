@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete branch within Crowdin
+        if: ${{ steps.extract_current_branch.outputs.branch }} != 'main'
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:
           command: delete branch 
