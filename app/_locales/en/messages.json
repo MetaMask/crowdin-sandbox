@@ -12,7 +12,7 @@
       "message": "Place the QR code in front of your camera. The screen is blurred, but it will not affect the reading."
     },
     "QRHardwareSignRequestCancel": {
-      "message": "Reject"
+      "message": "Rejected"
     },
     "QRHardwareSignRequestDescription": {
       "message": "After you’ve signed with your wallet, click on 'Get Signature' to receive the signature"
