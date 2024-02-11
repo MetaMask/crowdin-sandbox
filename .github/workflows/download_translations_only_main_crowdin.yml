@@ -1,6 +1,6 @@
-name: Download translations only for main branch
+name: Crowdin - Download translations only for main branch
 # this will run on a cron schedule and just periodically check for new translations
-# and download them if they exist
+# and download them if they exist meant for basic main translation pull
 
 permissions:
   contents: write
