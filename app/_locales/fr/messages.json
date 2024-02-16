@@ -23,7 +23,16 @@
     "QRHardwareSignRequestSubtitle": {
         "message": "Veuillez scanner le code QR avec votre portefeuille"
     },
+    "QRHardwareUnknownWalletQRCode": {
+        "message": "Code QR invalide. Scannez le code QR de synchronisation du portefeuille matériel."
+    },
     "QRHardwareSignRequestTitle": {
         "message": "Demander la signature"
+    },
+    "QRHardwareUnknownQRCodeTitle": {
+        "message": "Erreur"
+    },
+    "QRTestyTest": {
+        "message": "Test"
     }
 }
