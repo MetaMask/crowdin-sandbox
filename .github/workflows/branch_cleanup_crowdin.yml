@@ -18,6 +18,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: prestep
     steps:
+      - name: Get PR with Label for this branch
+        id: get-prs
+        run: |
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          
+          LABEL="ready-for-translation"
+          API_URL="https://api.github.com/repos/Metamask/crowdin-sandbox/pulls?head:${{steps.extract_current_branch.outputs.branch}}&state=open&per_page=100"
+          
+          # Fetch the list of open pull requests with the specified label using curl
+          PRS=$(curl -sS --header "Authorization: Bearer $GITHUB_TOKEN" "$API_URL")
+          
+          PR=$(echo $PRS | jq -r '[.[] | select(.labels[].name == "ready-for-translation") ] | @json')
+          echo "Found PR: $PR"
+          echo "pr=$pr" >> $GITHUB_OUTPUT
+
       - name: Remove label from PR
         uses: actions/github-script@v3
         with:
@@ -28,7 +43,7 @@ jobs:
             await github.issues.removeLabel({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issue_number,
+              issue_number: ${{ steps.get-prs.outputs.pr }},
               name: label
             });
   crowdin_cleanup:
