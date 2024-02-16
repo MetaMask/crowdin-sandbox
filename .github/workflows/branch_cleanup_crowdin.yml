@@ -14,6 +14,23 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_current_branch
 
+  github_cleanup:
+    runs-on: ubuntu-latest
+    needs: prestep
+    steps:
+      - name: Remove label from PR
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.payload.pull_request.number;
+            const label = "ready-for-translation";
+            await github.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              name: label
+            });
   crowdin_cleanup:
     runs-on: ubuntu-latest
     needs: prestep
