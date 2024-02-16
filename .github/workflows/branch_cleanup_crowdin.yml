@@ -38,7 +38,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issue_number = context.payload.pull_request.number;
             const label = "ready-for-translation";
             await github.issues.removeLabel({
               owner: context.repo.owner,
