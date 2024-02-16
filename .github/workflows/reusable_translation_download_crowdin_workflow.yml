@@ -38,7 +38,7 @@ jobs:
           ref: ${{ inputs.branch }}
       
       - name: Check translation progress
-        # when main just pull whatever you have (aka skip this)
+        # when main just pull whatever you have (aka skip this) - need to test
         if: ${{ inputs.branch != 'main' }} 
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:

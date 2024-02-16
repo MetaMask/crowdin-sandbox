@@ -5,7 +5,7 @@ name: Crowdin - Ready for translations label added, push to crowdin
 # source and translation files to Crowdin. We will always push main as the base of
 # the crowdin branch creation and then push in the changes over the top. This ensures
 # that the translations which have already been done and approved previously do not
-# show as needing to be translated again in crowdin.
+# show as needing to be translated again in the crowdin branch.
 
 on: workflow_dispatch
    
