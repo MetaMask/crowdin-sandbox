@@ -8,8 +8,6 @@ on: workflow_dispatch
 jobs:
   prestep:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.extract_current_branch.outputs.branch }}
     steps:
       - name: Extract current branch name
         shell: bash
@@ -38,7 +36,9 @@ jobs:
           
           PR=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .number | @json')
           echo "Found PR: $PR"
+          echo "Branch in PR part: $branch"
           echo "pr=$PR" >> $GITHUB_OUTPUT
+          echo "after pr: $branch"
 
       - name: Remove label from PR
         uses: actions/github-script@v3
@@ -58,11 +58,11 @@ jobs:
     needs: prestep
     steps:
       - name: Delete branch within Crowdin
-        if: ${{ needs.prestep.extract_current_branch.outputs.output1 }} != 'main'
+        if: ${{ needs.prestep.extract_current_branch.outputs.branch }} != 'main'
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:
           # on crowdin not GH
-          command: branch delete ${{ needs.prestep.extract_current_branch.outputs.output1 }}
+          command: branch delete ${{ needs.prestep.extract_current_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
