@@ -15,7 +15,7 @@ jobs:
         shell: bash
         run: |
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-          echo "Found branch: ${{ steps.extract_current_branch.outputs.output1 }}"
+          echo "Found branch: ${{ steps.extract_current_branch.outputs.branch }}"
         id: extract_current_branch
 
   github_cleanup:
