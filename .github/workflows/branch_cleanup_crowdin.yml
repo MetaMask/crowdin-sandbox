@@ -64,9 +64,12 @@ jobs:
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:
           upload_sources: false
+          push_sources: false
+          push_translations: false
+          create_pull_request: false
           # on crowdin not GH
           command: branch delete ${{ needs.prestep.outputs.branch }}
-          command_args: -c ../crowdin.yml
+          command_args: -c crowdin.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
