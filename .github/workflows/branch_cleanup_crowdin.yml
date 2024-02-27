@@ -4,20 +4,23 @@ name: Crowdin - Branch and Label Cleanup for merged localization PR
 
 # TODO: Add trigger for merge of localization PR.
 on: workflow_dispatch
-
+  
 jobs:
   prestep:
     runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.extract_current_branch.outputs.branch }}
+      pr: ${{ steps.get-prs.outputs.pr }}
+    
     steps:
       - name: Extract current branch name
         shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        run: |
+          echo "running on branch ${GITHUB_REF##*/}"
+          echo "other version: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_current_branch
 
-  github_cleanup:
-    runs-on: ubuntu-latest
-    needs: prestep
-    steps:
       - name: Get PR with Label for this branch
         id: get-prs
         run: |
@@ -31,10 +34,18 @@ jobs:
           
           PR=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .number | @json')
           echo "Found PR: $PR"
-          echo "pr=$pr" >> $GITHUB_OUTPUT
-
+          echo "pr=$PR" >> $GITHUB_OUTPUT
+  
+  github_cleanup:
+    runs-on: ubuntu-latest
+    needs: prestep
+    permissions:
+      issues: write
+      pull-requests: write   
+    steps:
       - name: Remove label from PR
         uses: actions/github-script@v3
+        if: needs.prestep.outputs.pr != null || needs.prestep.outputs.pr != ''
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -42,21 +53,26 @@ jobs:
             await github.issues.removeLabel({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: ${{ steps.get-prs.outputs.pr }},
+              issue_number: ${{ needs.prestep.outputs.pr }},
               name: label
             });
+
   crowdin_cleanup:
     runs-on: ubuntu-latest
     needs: prestep
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+      CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
     steps:
-      - name: Delete branch within Crowdin
-        if: ${{ steps.extract_current_branch.outputs.branch }} != 'main'
-        uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          # on crowdin not GH
-          command: delete branch 
-          command_args: ${{ steps.extract_current_branch.outputs.branch }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          ref: ${{ needs.prestep.outputs.branch }}
+
+      - name: Delete branch within Crowdin
+        if: ${{ needs.prestep.outputs.branch }} != 'main'
+        uses: crowdin/github-action@c953b17499daa6be3e5afbf7a63616fb02d8b18d
+        with:
+          command: branch delete ${{ needs.prestep.outputs.branch }}
+          command_args: -v
