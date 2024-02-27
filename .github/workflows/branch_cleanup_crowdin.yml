@@ -12,6 +12,8 @@ jobs:
       - name: Extract current branch name
         shell: bash
         run: |
+          echo "running on branch ${GITHUB_REF##*/}"
+          echo "other version: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
           echo "Found branch: ${{ steps.extract_current_branch.outputs.branch }}"
         id: extract_current_branch
@@ -36,9 +38,9 @@ jobs:
           
           PR=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .number | @json')
           echo "Found PR: $PR"
-          echo "Branch in PR part: ${{ needs.prestep.extract_current_branch.outputs.branch }}"
+          echo "Branch in PR part: ${{ steps.extract_current_branch.outputs.branch }}"
           echo "pr=$PR" >> $GITHUB_OUTPUT
-          echo "after pr: ${{ needs.prestep.extract_current_branch.outputs.branch }}"
+          echo "after pr: ${{ steps .extract_current_branch.outputs.branch }}"
 
       - name: Remove label from PR
         uses: actions/github-script@v3
