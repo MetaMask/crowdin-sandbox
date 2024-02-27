@@ -17,6 +17,9 @@ jobs:
   github_cleanup:
     runs-on: ubuntu-latest
     needs: prestep
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - name: Get PR with Label for this branch
         id: get-prs
