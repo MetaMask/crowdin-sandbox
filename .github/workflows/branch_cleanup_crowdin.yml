@@ -38,6 +38,7 @@ jobs:
 
       - name: Remove label from PR
         uses: actions/github-script@v3
+        if: ${{ steps.get-prs.outputs.pr }} != null || ${{ steps.get-prs.outputs.pr }} != ""
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
