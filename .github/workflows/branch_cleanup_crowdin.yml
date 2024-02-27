@@ -31,7 +31,7 @@ jobs:
           
           PR=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .number | @json')
           echo "Found PR: $PR"
-          echo "pr=$pr" >> $GITHUB_OUTPUT
+          echo "pr=$PR" >> $GITHUB_OUTPUT
 
       - name: Remove label from PR
         uses: actions/github-script@v3
