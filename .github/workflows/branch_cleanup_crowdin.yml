@@ -8,12 +8,13 @@ on: workflow_dispatch
 jobs:
   prestep:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.extract_current_branch.outputs.branch }}
     steps:
       - name: Extract current branch name
         shell: bash
         run: |
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-          echo "$branch"
         id: extract_current_branch
 
   github_cleanup:
@@ -56,11 +57,11 @@ jobs:
     needs: prestep
     steps:
       - name: Delete branch within Crowdin
-        if: ${{ steps.extract_current_branch.outputs.branch }} != 'main'
+        if: ${{ steps.extract_current_branch.outputs.output1 }} != 'main'
         uses: crowdin/github-action@c858c54aca1629608ec39a54ee0f7ba4389eb59f
         with:
           # on crowdin not GH
-          command: branch delete ${{ steps.extract_current_branch.outputs.branch }}
+          command: branch delete ${{ steps.extract_current_branch.outputs.output1 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
