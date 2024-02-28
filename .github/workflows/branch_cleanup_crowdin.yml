@@ -35,6 +35,15 @@ jobs:
           echo "Found PR: $PR"
           echo "pr=$PR" >> $GITHUB_OUTPUT
 
+  test:
+    runs-on: ubuntu-latest
+    needs: prestep
+    steps:
+      - name: Remove label from PR
+        run: |
+          echo "PR: ${{ needs.prestep.outputs.pr }}"
+          echo "Branch: ${{ needs.prestep.outputs.branch }}"
+
   github_cleanup:
     runs-on: ubuntu-latest
     needs: prestep
