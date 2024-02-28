@@ -67,8 +67,8 @@ jobs:
           push_sources: false
           push_translations: false
           create_pull_request: false
-          command: delete branch 
-          command_args: ${{ needs.prestep.outputs.branch }}
+          command: delete branch ${{ needs.prestep.outputs.branch }}
+          command_args: -v
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
