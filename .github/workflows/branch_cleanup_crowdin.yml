@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: prestep
     steps:
-      - name: Remove label from PR
+      - name: Test
         run: |
           echo "PR: ${{ needs.prestep.outputs.pr }}"
           echo "Branch: ${{ needs.prestep.outputs.branch }}"
@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: Remove label from PR
         uses: actions/github-script@v3
-        if: ${{ needs.prestep.outputs.pr.defined }}
+        if: ${{ needs.prestep.outputs.pr != null}} || ${{ needs.prestep.outputs.pr != ''}}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -76,7 +76,7 @@ jobs:
           push_sources: false
           push_translations: false
           create_pull_request: false
-          command: delete branch ${{ needs.prestep.outputs.branch }}
+          command: branch delete ${{ needs.prestep.outputs.branch }}
           command_args: -v
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
