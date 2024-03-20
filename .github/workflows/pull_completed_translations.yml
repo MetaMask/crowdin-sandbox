@@ -14,7 +14,7 @@ on: workflow_dispatch
 jobs: 
   run-check-and-download-for-branch:
     needs: get-branches
-    if: ${{ needs.get-branches.outputs.matrix != '[]' && needs.get-branches.outputs.matrix != '' }}
+    if: needs.get-branches.outputs.matrix != '[]' && needs.get-branches.outputs.matrix != ''
     strategy:
       fail-fast: false
       matrix:

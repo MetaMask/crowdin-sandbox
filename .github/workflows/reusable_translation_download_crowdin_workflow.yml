@@ -39,7 +39,7 @@ jobs:
       
       - name: Check translation progress
         # when main just pull whatever you have (aka skip this) - need to test
-        if: ${{ inputs.branch != 'main' }} 
+        if: inputs.branch != 'main' 
         uses: crowdin/github-action@c953b17499daa6be3e5afbf7a63616fb02d8b18d
         with:
           command: 'status translation'
