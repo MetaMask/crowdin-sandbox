@@ -76,7 +76,7 @@ jobs:
           push_sources: false
           push_translations: false
           create_pull_request: false
-          command: branch delete ${{ needs.prestep.outputs.branch }}
+          command: 'branch delete ${{ needs.prestep.outputs.branch }}'
           command_args: -v
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
