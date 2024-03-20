@@ -35,35 +35,6 @@ jobs:
           echo "Found PR: $PR"
           echo "pr=$PR" >> $GITHUB_OUTPUT
 
-  test:
-    runs-on: ubuntu-latest
-    needs: prestep
-    steps:
-      - name: Test
-        run: |
-          echo "PR: ${{ needs.prestep.outputs.pr }}"
-          echo "Branch: ${{ needs.prestep.outputs.branch }}"
-
-  github_cleanup:
-    runs-on: ubuntu-latest
-    needs: prestep
-    permissions:
-      issues: write
-      pull-requests: write   
-    steps:
-      - name: Remove label from PR
-        uses: actions/github-script@v3
-        if: ${{ needs.prestep.outputs.pr != null}} || ${{ needs.prestep.outputs.pr != ''}}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const label = "ready-for-translation";
-            await github.issues.removeLabel({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ needs.prestep.outputs.pr }},
-              name: label
-            });
   crowdin_cleanup:
     runs-on: ubuntu-latest
     needs: prestep
@@ -76,7 +47,7 @@ jobs:
           push_sources: false
           push_translations: false
           create_pull_request: false
-          command: 'branch delete ${{ needs.prestep.outputs.branch }}'
+          command: 'branch delete ${{ needs.prestep.outputs.branch }} -T ${{ secrets.CROWDIN_PERSONAL_TOKEN }}'
           command_args: -v
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
