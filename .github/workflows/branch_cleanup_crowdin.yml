@@ -11,6 +11,7 @@ jobs:
     outputs:
       branch: ${{ steps.extract_current_branch.outputs.branch }}
       pr: ${{ steps.get-prs.outputs.pr }}
+    
     steps:
       - name: Extract current branch name
         shell: bash
@@ -34,6 +35,36 @@ jobs:
           PR=$(echo $PRS | jq -r '.[] | select(.labels[].name == "ready-for-translation") | .number | @json')
           echo "Found PR: $PR"
           echo "pr=$PR" >> $GITHUB_OUTPUT
+
+  test:
+    runs-on: ubuntu-latest
+    needs: prestep
+    steps:
+      - name: Test
+        run: |
+          echo "PR: ${{ needs.prestep.outputs.pr }}"
+          echo "Branch: ${{ needs.prestep.outputs.branch }}"
+  
+  github_cleanup:
+    runs-on: ubuntu-latest
+    needs: prestep
+    permissions:
+      issues: write
+      pull-requests: write   
+    steps:
+      - name: Remove label from PR
+        uses: actions/github-script@v3
+        if: needs.prestep.outputs.pr != null || needs.prestep.outputs.pr != ''
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const label = "ready-for-translation";
+            await github.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ needs.prestep.outputs.pr }},
+              name: label
+            });
 
   crowdin_cleanup:
     runs-on: ubuntu-latest
