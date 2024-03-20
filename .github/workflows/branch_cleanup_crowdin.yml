@@ -4,9 +4,6 @@ name: Crowdin - Branch and Label Cleanup for merged localization PR
 
 # TODO: Add trigger for merge of localization PR.
 on: workflow_dispatch
-permissions:
-  contents: write
-  pull-requests: write
   
 jobs:
   prestep:
@@ -46,6 +43,11 @@ jobs:
       CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PROJECT_ID }}
       CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.prestep.outputs.branch }}
+
       - name: Delete branch within Crowdin
         if: ${{ needs.prestep.outputs.branch }} != 'main'
         uses: crowdin/github-action@c953b17499daa6be3e5afbf7a63616fb02d8b18d
