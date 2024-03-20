@@ -4,7 +4,10 @@ name: Crowdin - Branch and Label Cleanup for merged localization PR
 
 # TODO: Add trigger for merge of localization PR.
 on: workflow_dispatch
-
+permissions:
+  contents: write
+  pull-requests: write
+  
 jobs:
   prestep:
     runs-on: ubuntu-latest
@@ -47,8 +50,4 @@ jobs:
         if: ${{ needs.prestep.outputs.branch }} != 'main'
         uses: crowdin/github-action@c953b17499daa6be3e5afbf7a63616fb02d8b18d
         with:
-          upload_sources: false
-          push_sources: false
-          push_translations: false
-          create_pull_request: false
           command: 'status translation'
