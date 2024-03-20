@@ -34,5 +34,8 @@
     },
     "QRTestyTest": {
       "message": "Testing tester"
+    },
+    "QRTestyTest2": {
+      "message": "Testing tester 2"
     }
 }
