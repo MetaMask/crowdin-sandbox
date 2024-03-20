@@ -31,5 +31,8 @@
     },
     "QRHardwareUnknownQRCodeTitle": {
         "message": "Error"
+    },
+    "QRTestyTest": {
+        "message": "Test in spanish"
     }
 }

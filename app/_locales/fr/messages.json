@@ -31,5 +31,8 @@
     },
     "QRHardwareUnknownQRCodeTitle": {
         "message": "Erreur"
+    },
+    "QRTestyTest": {
+        "message": "Test"
     }
 }
