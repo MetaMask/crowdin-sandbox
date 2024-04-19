@@ -24,7 +24,7 @@ jobs:
         id: extract_current_branch
 
       - name: Modified branch name
-        run: echo "modified_branch_name=${{ steps.extract_current_branch.outputs.branch }}" | sed 's#/#-#g'" >> $GITHUB_OUTPUT
+        run: echo "modified_branch_name=${{ steps.extract_current_branch.outputs.branch }} | sed 's#/#-#g'" >> $GITHUB_OUTPUT
         id: modified_branch_name
 
       - name: Checkout
