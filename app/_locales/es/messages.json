@@ -34,5 +34,11 @@
     },
     "QRTestyTest": {
         "message": "Test in spanish"
+    },
+    "QRTestyTest2": {
+        "message": "translated string 2"
+    },
+    "QRTestyTest23": {
+        "message": "translated string 3"
     }
 }
