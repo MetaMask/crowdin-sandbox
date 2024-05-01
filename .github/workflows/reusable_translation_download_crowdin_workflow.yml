@@ -56,7 +56,7 @@ jobs:
           upload_sources: false
           upload_translations: false
           download_translations: true
-          skip_untranslated_strings: true
+          download_translations_args: '-b ${{ steps.extract_modified_branch_name.outputs.modified_branch_name }}'
           export_only_approved: true
           localization_branch_name: l10n_crowdin_translations_${{ inputs.branch }}
           # Try to use standard name and if it breaks use modified branch name
