@@ -40,5 +40,8 @@
     },
     "QRTestyTest23": {
       "message": "Testing tester 3"
+    },
+    "QRTestyTestGIntegration": {
+      "message": "Testing ghub integration"
     }
 }
