@@ -1,0 +1,47 @@
+{
+    "QRHardwareInvalidTransactionTitle": {
+        "message": "Erreur"
+    },
+    "QRHardwareMismatchedSignId": {
+        "message": "Données de transaction incompatibles. Veuillez vérifier les détails de la transaction."
+    },
+    "QRHardwarePubkeyAccountOutOfRange": {
+        "message": "Il n'y a plus de comptes. Si vous souhaitez accéder à un autre compte non répertorié ci-dessous, veuillez reconnecter votre portefeuille matériel et le sélectionner."
+    },
+    "QRHardwareScanInstructions": {
+        "message": "Placez le codeR devant votre caméra. L'écran est flou, mais cela n'affectera pas la lecture."
+    },
+    "QRHardwareSignRequestCancel": {
+        "message": "Rejeter"
+    },
+    "QRHardwareSignRequestDescription": {
+        "message": "Après avoir signé avec votre portefeuille, cliquez sur « Obtenir la signature » pour recevoir la signature"
+    },
+    "QRHardwareSignRequestGetSignature": {
+        "message": "Obtenir las signatures"
+    },
+    "QRHardwareSignRequestSubtitle": {
+        "message": "Veuillez scanner le code QR avec votre portefeuille"
+    },
+    "QRHardwareUnknownWalletQRCode": {
+        "message": "Code QR invalide. Scannez le code QR de synchronisation du portefeuille matériel."
+    },
+    "QRHardwareSignRequestTitle": {
+        "message": "Demander la signature"
+    },
+    "QRHardwareUnknownQRCodeTitle": {
+        "message": "Erreur"
+    },
+    "QRTestyTest": {
+        "message": "Test"
+    },
+    "QRTestyTest2": {
+        "message": "translated string 2"
+    },
+    "QRTestyTest23": {
+        "message": "translated string 3"
+    },
+    "QRTestyTest24": {
+        "message": "Testing tester 4"
+    }
+}
