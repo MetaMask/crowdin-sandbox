@@ -1,4 +1,7 @@
 {
+    "QRHardwareInvalidTransactionTitle": {
+        "message": "Error"
+    },
     "QRHardwareMismatchedSignId": {
         "message": "Datos de transacción incongruentes. Compruebe los detalles."
     },
@@ -25,6 +28,9 @@
     },
     "QRHardwareSignRequestTitle": {
         "message": "Solicitar firma"
+    },
+    "QRHardwareUnknownQRCodeTitle": {
+        "message": "Error"
     },
     "QRTestyTest": {
         "message": "Test in spanish"
