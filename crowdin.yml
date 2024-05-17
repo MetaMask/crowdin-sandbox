@@ -3,8 +3,6 @@
 "base_path": "."
 "base_url": "https://api.crowdin.com"
 "preserve_hierarchy": true
-"auto-approve-imported": true
-"import-eq-suggestions": true
 
 files: [
   {
