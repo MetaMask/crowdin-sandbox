@@ -1,0 +1,47 @@
+{
+    "QRHardwareInvalidTransactionTitle": {
+        "message": "Error"
+    },
+    "QRHardwareMismatchedSignId": {
+        "message": "Datos de transacción incongruentes. Compruebe los detalles."
+    },
+    "QRHardwarePubkeyAccountOutOfRange": {
+        "message": "No hay más cuentas. Para acceder a otra cuenta que no figura en la lista, vuelva a conectar su monedero físico y selecciónela."
+    },
+    "QRHardwareScanInstructions": {
+        "message": "Coloque el código QR delante de la cámara. La pantalla está borrosa, pero no afectará la lectura."
+    },
+    "QRHardwareSignRequestCancel": {
+        "message": "Rechazar changes"
+    },
+    "QRHardwareSignRequestDescription": {
+        "message": "Después de firmar con su monedero, haga clic en \"Obtener firma\" para recibir la firma"
+    },
+    "QRHardwareSignRequestGetSignature": {
+        "message": "Obtener firma"
+    },
+    "QRHardwareSignRequestSubtitle": {
+        "message": "Escanee código QR con su monedero"
+    },
+    "QRHardwareUnknownWalletQRCode": {
+        "message": "Código QR no válido. Escanee el QR sincronizado del monedero físico."
+    },
+    "QRHardwareSignRequestTitle": {
+        "message": "Solicitar firma"
+    },
+    "QRHardwareUnknownQRCodeTitle": {
+        "message": "Error"
+    },
+    "QRTestyTest": {
+        "message": "Test in spanish"
+    },
+    "QRTestyTest2": {
+        "message": "translated string 2"
+    },
+    "QRTestyTest23": {
+        "message": "translated string 3"
+    },
+    "QRTestyTest24": {
+        "message": "Testing tester 4"
+    }
+}
